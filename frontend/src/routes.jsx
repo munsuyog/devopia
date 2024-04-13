@@ -7,10 +7,13 @@ import {
   MdHome,
   MdLock,
   MdOutlineShoppingCart,
+  MdFamilyRestroom,
 } from "react-icons/md";
 
 // Admin Imports
 import MainDashboard from "views/admin/default";
+import FamilyDashboard from "views/admin/family";
+import AddMembers from "views/admin/addMember";
 import NFTMarketplace from "views/admin/marketplace";
 import Profile from "views/admin/profile";
 import DataTables from "views/admin/dataTables";
@@ -26,6 +29,20 @@ const routes = [
     path: "/default",
     icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
     component: MainDashboard,
+  },
+  {
+    name: "Family Dashboard",
+    layout: "/admin",
+    path: "/family",
+    icon: <Icon as={MdFamilyRestroom} width='20px' height='20px' color='inherit' />,
+    component: FamilyDashboard,
+  },
+  {
+    name: "Add Family Members",
+    layout: "/admin",
+    path: "/addMembers",
+    icon: <Icon as={MdFamilyRestroom} width='20px' height='20px' color='inherit' />,
+    component: AddMembers,
   },
   {
     name: "NFT Marketplace",
