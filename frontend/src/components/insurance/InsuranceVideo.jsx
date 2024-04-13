@@ -1,9 +1,9 @@
-import { Alert, AlertIcon, AspectRatio, Box, Button, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, NumberInput, NumberInputField, Text, useColorMode, useDisclosure } from "@chakra-ui/react";
+import { Alert, AlertIcon, AspectRatio, Box, Button, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, NumberInput, NumberInputField, Text, useDisclosure } from "@chakra-ui/react";
 import { useState } from 'react';
 import InsuranceCards from "./Insurancecards";
 
 const InsuranceVideo = () => {
-    const { colorMode, toggleColorMode } = useColorMode();
+    
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [age, setAge] = useState('');
     const [income, setIncome] = useState('');
@@ -60,7 +60,7 @@ const InsuranceVideo = () => {
                     </ModalFooter>
                 </ModalContent>
             </Modal>
-            <InsuranceCards/>
+            <InsuranceCards insurance={insurance}/>
         </Box>
         
     );
