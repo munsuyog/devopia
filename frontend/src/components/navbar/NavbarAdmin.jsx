@@ -118,7 +118,7 @@ export default function AdminNavbar(props) {
 						_focus={{
 							boxShadow: 'none'
 						}}>
-						{brandText}
+						harsh and aayush
 					</Link>
 				</Box>
 				<Box ms='auto' w={{ sm: '100%', md: 'unset' }}>
