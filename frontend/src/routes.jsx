@@ -7,16 +7,24 @@ import {
   MdHome,
   MdLock,
   MdOutlineShoppingCart,
+  MdFamilyRestroom,
+  MdPieChart,
 } from "react-icons/md";
 
 // Admin Imports
 import MainDashboard from "views/admin/default";
+import FamilyDashboard from "views/admin/family";
+import AddMembers from "views/admin/addMembers";
 import NFTMarketplace from "views/admin/marketplace";
 import Profile from "views/admin/profile";
 import DataTables from "views/admin/dataTables";
+import RiskManagement from "views/admin/riskManagement"
+import RiskAssessment from "views/admin/riskAssessment"
+import ChatBot from "views/admin/chatBot/Index"
 // Auth Imports
 import SignInCentered from "views/auth/signIn";
 import SignUpCentered from "views/auth/signup";
+import { AddIcon } from "@chakra-ui/icons";
 
 const routes = [
   {
@@ -25,6 +33,20 @@ const routes = [
     path: "/default",
     icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
     component: MainDashboard,
+  },
+  {
+    name: "Family Dashboard",
+    layout: "/admin",
+    path: "/family",
+    icon: <Icon as={MdFamilyRestroom} width='20px' height='20px' color='inherit' />,
+    component: FamilyDashboard,
+  },
+  {
+    name: "Add Family Members",
+    layout: "/admin",
+    path: "/addMembers",
+    icon: <Icon as={AddIcon} width='20px' height='20px' color='inherit' />,
+    component: AddMembers,
   },
   {
     name: "NFT Marketplace",
@@ -54,6 +76,27 @@ const routes = [
     path: "/profile",
     icon: <Icon as={MdPerson} width='20px' height='20px' color='inherit' />,
     component: Profile,
+  },
+  {
+    name: "Risk Management",
+    layout: "/admin",
+    path: "/riskManagement",
+    icon: <Icon as={MdPieChart} width='20px' height='20px' color='inherit' />,
+    component: RiskManagement,
+  },
+  {
+    name: "Risk Assessment",
+    layout: "/admin",
+    path: "/riskAssessment",
+    icon: <Icon as={MdBarChart} width='20px' height='20px' color='inherit' />,
+    component: RiskAssessment,
+  },
+  {
+    name: "ChatBot",
+    layout: "/auth",
+    path: "/chatBot",
+    icon: <Icon as={MdLock} width='20px' height='20px' color='inherit' />,
+    component: ChatBot,
   },
   {
     name: "Sign In",
