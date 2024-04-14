@@ -1,5 +1,9 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { useState } from "react";
+import { SignInn } from "utils/firebase";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { useHistory } from "react-router-dom";
 // Chakra imports
 import {
   Box,
@@ -26,6 +30,8 @@ import { MdOutlineRemoveRedEye } from "react-icons/md";
 import { RiEyeCloseLine } from "react-icons/ri";
 
 function SignIn() {
+  const histroy = useHistory();
+
   // Chakra color mode
   const textColor = useColorModeValue("navy.700", "white");
   const textColorSecondary = "gray.400";
@@ -44,6 +50,31 @@ function SignIn() {
   );
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
+
+  const[email, setEmail] = useState("");
+  const[password, setPassword] = useState("");
+
+  // const navigate = useNavigate();
+
+  const handleSignIn = async () => {
+    try {
+      const data = await SignInn(email, password);
+      console.log(data)
+      
+      const auth = getAuth();
+      onAuthStateChanged(auth, (user) => {
+      if (user) {
+        alert("User is in");
+        histroy.push('/admin')
+      } else {
+        histroy.push('/sign-in')
+      }
+});
+    } catch(err) {
+      console.error(err)
+    }
+  }
+
   return (
     <DefaultAuth>
       <Flex
@@ -124,6 +155,8 @@ function SignIn() {
               mb='24px'
               fontWeight='500'
               size='lg'
+              value={email}
+              onChange={(e) => {setEmail(e.target.value)}}
             />
             <FormLabel
               ms='4px'
@@ -142,13 +175,15 @@ function SignIn() {
                 size='lg'
                 type={show ? "text" : "password"}
                 variant='auth'
+                value={password}
+                onChange={(e) => {setPassword(e.target.value)}}
               />
               <InputRightElement display='flex' alignItems='center' mt='4px'>
                 <Icon
                   color={textColorSecondary}
                   _hover={{ cursor: "pointer" }}
                   as={show ? RiEyeCloseLine : MdOutlineRemoveRedEye}
-                  onClick={handleClick}
+                  onClick={handleSignIn}
                 />
               </InputRightElement>
             </InputGroup>
@@ -184,7 +219,8 @@ function SignIn() {
               fontWeight='500'
               w='100%'
               h='50'
-              mb='24px'>
+              mb='24px'
+              onClick={handleSignIn}>
               Sign In
             </Button>
           </FormControl>

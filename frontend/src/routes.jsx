@@ -16,12 +16,11 @@ import MainDashboard from "views/admin/default";
 import FamilyDashboard from "views/admin/family";
 import AddMembers from "views/admin/addMembers";
 import NFTMarketplace from "views/admin/marketplace";
-import Profile from "views/admin/profile";
 import DataTables from "views/admin/dataTables";
 import Insurance from "views/admin/insurance";
 import RiskManagement from "views/admin/riskManagement"
 import RiskAssessment from "views/admin/riskAssessment"
-import ChatBot from "views/admin/chatBot/Index"
+// import ChatBot from "views/admin/chatBot/Index"
 // Auth Imports
 import SignInCentered from "views/auth/signIn";
 import SignUpCentered from "views/auth/signup";
@@ -73,13 +72,6 @@ const routes = [
     component: DataTables,
   },
   {
-    name: "Profile",
-    layout: "/admin",
-    path: "/profile",
-    icon: <Icon as={MdPerson} width='20px' height='20px' color='inherit' />,
-    component: Profile,
-  },
-  {
     name: "Risk Management",
     layout: "/admin",
     path: "/riskManagement",
@@ -100,13 +92,13 @@ const routes = [
     icon: <Icon as={IoMdDocument} width='20px' height='20px' color='inherit' />,
     component: Insurance,
   },
-  {
-    name: "ChatBot",
-    layout: "/auth",
-    path: "/chatBot",
-    icon: <Icon as={MdLock} width='20px' height='20px' color='inherit' />,
-    component: ChatBot,
-  },
+  // {
+  //   name: "ChatBot",
+  //   layout: "/auth",
+  //   path: "/chatBot",
+  //   icon: <Icon as={MdLock} width='20px' height='20px' color='inherit' />,
+  //   component: ChatBot,
+  // },
   {
     name: "Sign In",
     layout: "/auth",
