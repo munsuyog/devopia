@@ -246,7 +246,7 @@ async function fetchHistoricalPrices(symbol, apiKey) {
     }
 }
 // Main function
-app.get('/api/get_rsi', async function(req, res) {
+app.post('/api/get_rsi', async function(req, res) {
     const symbol = req.body.symbol; // Example stock symbol (International Business Machines Corporation)
     const apiKey = '6ad21e80a0mshf4b5c79de90889dp1a9896jsnf3beed8f2b7e'; // Your Alpha Vantage API key
 
@@ -254,7 +254,7 @@ app.get('/api/get_rsi', async function(req, res) {
         const prices = await fetchHistoricalPrices(symbol, apiKey);
         const rsi = calculateRSI(prices);
 
-        res.json(rsi);
+        res.json({rsi: rsi});
     } catch (error) {
         console.error('Error:', error);
     }

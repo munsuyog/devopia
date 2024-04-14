@@ -92,3 +92,29 @@ export const getBalance = async () => {
         throw error; // Rethrow the error to be caught by the caller
     }
 }
+
+
+export async function getRSIFromEndpoint(symbol) {
+    const endpoint = 'http://localhost:8000/api/get_rsi';
+
+    try {
+        const response = await fetch(endpoint, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                // Assuming your endpoint expects a JSON body with the symbol
+            },
+            body: JSON.stringify({ symbol: symbol })
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const rsi = await response.json();
+        return rsi;
+    } catch (error) {
+        console.error('Error:', error);
+        throw new Error('Failed to fetch RSI from endpoint');
+    }
+}
