@@ -1,14 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { Box, Text, Flex, Progress, Badge } from "@chakra-ui/react";
 import ReactSpeedometer from "react-d3-speedometer";
+import axios from 'axios'
 
 const RiskAssessment = () => {
   const [rsi, setRsi] = useState(80);
 
   useEffect(() => {
-    // Update the RSI value here based on your logic
+    axios.get('http://localhost:5000/api/rsi') // replace with your backend API endpoint
+      .then(response => {
+        setRsi(response.data.rsi);
+      })
+      .catch(error => {
+        console.error('Error fetching RSI:', error);
+      });
   }, []);
-
   const getColorScheme = () => {
     if (rsi < 30) {
       return "green";
@@ -44,7 +50,7 @@ const RiskAssessment = () => {
       >
         <Flex justifyContent="space-between" alignItems="center" mb={4}>
           <Text fontSize="2xl" fontWeight="bold">
-            Company Name
+            Company Name 
           </Text>
           <Badge colorScheme="green" fontSize="1em">
             <span class="WebRupee">&#x20B9;</span> Market Price
