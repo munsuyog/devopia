@@ -1,5 +1,10 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import {app, db, auth} from '../../../utils/firebase'
+import { useState } from "react";
+import {SignUpp} from '../../../utils/firebase'
+import { useHistory } from "react-router-dom";
+import { onAuthStateChanged } from "firebase/auth";
 // Chakra imports
 import {
   Box,
@@ -26,6 +31,7 @@ import { MdOutlineRemoveRedEye } from "react-icons/md";
 import { RiEyeCloseLine } from "react-icons/ri";
 
 function SignUp() {
+  const histroy = useHistory();
   // Chakra color mode
   const textColor = useColorModeValue("navy.700", "white");
   const textColorSecondary = "gray.400";
@@ -44,6 +50,39 @@ function SignUp() {
   );
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
+  const[email, setEmail] = useState("");
+  const[password, setPassword] = useState("");
+  const[name, setName] = useState("");
+  // const navigate = useNavigate();
+//   const SignIn = () => {
+//     createUserWithEmailAndPassword(auth, email, password)
+//   .then((userCredential) => {
+//     // Signed up 
+//     const user = userCredential.user;
+//     // ...
+//   })
+//   .catch((error) => {
+//     const errorCode = error.code;
+//     const errorMessage = error.message;
+//     // ..
+//   });
+// }
+const handleSignUp = async () => {
+  try {
+    const data = await SignUpp(name, email, password);
+    console.log(data)
+    onAuthStateChanged(auth, (user) => {
+    if (user) {
+      histroy.push("/Admin")
+    } else {
+      histroy.push("/sign-in")
+    }
+});
+  } catch(err) {
+    console.error(err)
+  }
+}
+
   return (
     <DefaultAuth>
       <Flex
@@ -105,6 +144,28 @@ function SignUp() {
             <HSeparator />
           </Flex>
           <FormControl>
+          <FormLabel
+              display='flex'
+              ms='4px'
+              fontSize='sm'
+              fontWeight='500'
+              color={textColor}
+              mb='8px'>
+              Name<Text color={brandStars}>*</Text>
+            </FormLabel>
+            <Input
+              isRequired={true}
+              variant='auth'
+              fontSize='sm'
+              ms={{ base: "0px", md: "0px" }}
+              type='text'
+              placeholder='Name'
+              mb='24px'
+              fontWeight='500'
+              size='lg'
+              value={name}
+              onChange={(e) => {setName(e.target.value)}}
+            />
             <FormLabel
               display='flex'
               ms='4px'
@@ -124,6 +185,8 @@ function SignUp() {
               mb='24px'
               fontWeight='500'
               size='lg'
+              value={email}
+              onChange={(e) => {setEmail(e.target.value)}}
             />
             <FormLabel
               ms='4px'
@@ -142,6 +205,8 @@ function SignUp() {
                 size='lg'
                 type={show ? "text" : "password"}
                 variant='auth'
+                value={password}
+                onChange={(e) => {setPassword(e.target.value)}}
               />
               <InputRightElement display='flex' alignItems='center' mt='4px'>
                 <Icon
@@ -175,7 +240,8 @@ function SignUp() {
               fontWeight='500'
               w='100%'
               h='50'
-              mb='24px'>
+              mb='24px'
+              onClick={handleSignUp}>
               Sign Up
             </Button>
           </FormControl>

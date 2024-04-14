@@ -1,4 +1,9 @@
 import React, { useState } from "react";
+import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
+import { collection, addDoc, setDoc, doc, updateDoc} from "firebase/firestore";
+import {app} from '../../../../utils/firebase'
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import {
   Box,
   Button,
@@ -22,7 +27,6 @@ const PeopleList = () => {
   const [formState, setFormState] = useState({
     name: "",
     age: "",
-    gender: "",
     phoneNumber: "",
     email: "",
   });
@@ -42,7 +46,6 @@ const PeopleList = () => {
     setFormState({
       name: "",
       age: "",
-      gender: "",
       phoneNumber: "",
       email: "",
     });
@@ -54,6 +57,27 @@ const PeopleList = () => {
 
   const formBackground = useColorModeValue("gray.100", "gray.700");
   const buttonColor = useColorModeValue("teal", "green");
+
+  console.log(formState.name, formState.age, formState.phoneNumber, formState.email);
+  const auth = getAuth();
+  const db = getFirestore(app);
+
+  const handleSubmit2 = () => {
+    onAuthStateChanged(auth, async (user) => {
+      if(user){
+      const docRef = doc(db,`users/${user.uid}/Family/Member`);
+      await setDoc(docRef, {
+        Name : formState.name,
+        Age : formState.age,
+        Phone_NO : formState.phoneNumber,
+        Email : formState.email
+    })
+      }
+      else{
+          alert("not signed in")
+      }
+  })
+  }
 
   return (
     <Flex
@@ -156,21 +180,6 @@ const PeopleList = () => {
                 />
               </FormControl>
 
-              <FormControl id="gender" mb={4}>
-                <FormLabel>Gender</FormLabel>
-                <Select
-                  name="gender"
-                  value={formState.gender}
-                  onChange={handleChange}
-                  placeholder="Select Gender"
-                  color="white" // Set text color to white
-                >
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
-                  <option value="other">Other</option>
-                </Select>
-              </FormControl>
-
               <FormControl id="phoneNumber" mb={4}>
                 <FormLabel>Phone Number</FormLabel>
                 <Input
@@ -191,7 +200,7 @@ const PeopleList = () => {
                 />
               </FormControl>
 
-              <Button mt={4} colorScheme={buttonColor} type="submit">
+              <Button mt={4} colorScheme={buttonColor} type="submit" onClick={handleSubmit2}>
                 Submit
               </Button>
             </Box>

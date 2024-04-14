@@ -31,7 +31,7 @@ function AuthIllustration(props) {
         alignItems='center'
         direction='column'>
         <NavLink
-          to='/'
+          to='/admin/default'
           style={() => ({
             width: "fit-content",
             marginTop: "40px",

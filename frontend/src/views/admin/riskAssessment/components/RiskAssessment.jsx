@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Box, Text, Flex, Progress, Badge } from "@chakra-ui/react";
-import ReactSpeedometer from "react-d3-speedometer";
+// import ReactSpeedometer from "react-d3-speedometer";
 
 const RiskAssessment = () => {
   const [rsi, setRsi] = useState(80);
@@ -53,7 +53,7 @@ const RiskAssessment = () => {
 
         <Text mb={2}>Riskometer:</Text>
         <Flex justifyContent="center" alignItems="center">
-          <ReactSpeedometer
+          {/* <ReactSpeedometer
             maxValue={100}
             value={rsi}
             startColor="green"
@@ -81,7 +81,7 @@ const RiskAssessment = () => {
                 fontSize: "8px",
               },
             ]}
-          />
+          /> */}
         </Flex>
 
         <Text
