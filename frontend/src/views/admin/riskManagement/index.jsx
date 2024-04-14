@@ -1,8 +1,11 @@
 import React from 'react'
+import RiskForm from './components/RiskManagement'
 
 const index = () => {
   return (
-    <div>index</div>
+    <div>
+        <RiskForm>  </RiskForm>
+    </div>
   )
 }
 

@@ -10,11 +10,13 @@ import {
 // Custom components
 import Card from "components/card/Card.jsx";
 import LineChart from "components/charts/LineChart";
-import React from "react";
+import { getMonthlyIncomeAndOutcome } from "functions/transactions";
+import React, { useEffect, useState } from "react";
 import { IoCheckmarkCircle } from "react-icons/io5";
 import { MdBarChart, MdOutlineCalendarToday } from "react-icons/md";
 // Assets
 import { RiArrowUpSFill } from "react-icons/ri";
+import { getTransactions } from "utils/paild";
 import {
   lineChartDataTotalSpent,
   lineChartOptionsTotalSpent,
@@ -38,6 +40,34 @@ export default function TotalSpent(props) {
     { bg: "secondaryGray.300" },
     { bg: "whiteAlpha.100" }
   );
+
+  const [lineChartData, setLineChartData] = useState([]);
+  console.log(lineChartData)
+
+  useEffect(() => {
+    const fetchTransactions = async () => {
+      try {
+        const data = await getTransactions();
+        const { summedIncome, summedOutcome } = getMonthlyIncomeAndOutcome(data.latest_transactions);
+        const lineChartDataTotalSpent = [
+          {
+              name: "Income",
+              data: summedIncome,
+          },
+          {
+              name: "Outcome",
+              data: summedOutcome,
+          },
+      ];
+      setLineChartData(lineChartDataTotalSpent)
+      }
+      catch(error) {
+        console.error(error);
+      }
+    }
+    fetchTransactions();
+  },[])
+
   return (
     <Card
       justifyContent='center'
@@ -48,19 +78,6 @@ export default function TotalSpent(props) {
       {...rest}>
       <Flex justify='space-between' ps='0px' pe='20px' pt='5px'>
         <Flex align='center' w='100%'>
-          <Button
-            bg={boxBg}
-            fontSize='sm'
-            fontWeight='500'
-            color={textColorSecondary}
-            borderRadius='7px'>
-            <Icon
-              as={MdOutlineCalendarToday}
-              color={textColorSecondary}
-              me='4px'
-            />
-            This month
-          </Button>
           <Button
             ms='auto'
             align='center'
@@ -86,7 +103,7 @@ export default function TotalSpent(props) {
             textAlign='start'
             fontWeight='700'
             lineHeight='100%'>
-            $37.5K
+            {lineChartData.length > 0 ? (`Rs.${lineChartData[1].data.reduce((acc, val) => acc + val, 0)}`) : ""}
           </Text>
           <Flex align='center' mb='20px'>
             <Text
@@ -97,26 +114,25 @@ export default function TotalSpent(props) {
               me='12px'>
               Total Spent
             </Text>
-            <Flex align='center'>
-              <Icon as={RiArrowUpSFill} color='green.500' me='2px' mt='2px' />
-              <Text color='green.500' fontSize='sm' fontWeight='700'>
-                +2.45%
-              </Text>
-            </Flex>
           </Flex>
 
-          <Flex align='center'>
-            <Icon as={IoCheckmarkCircle} color='green.500' me='4px' />
-            <Text color='green.500' fontSize='md' fontWeight='700'>
-              On track
-            </Text>
-          </Flex>
+          {
+            lineChartData.length > 0 ? (
+              <Flex align='center'>
+              <Icon as={IoCheckmarkCircle} color={lineChartData[0].data.reduce((acc, val) => acc + val, 0) >= lineChartData[1].data.reduce((acc, val) => acc + val, 0) ? 'green.500' : 'red.500'} me='4px' />
+              <Text color={lineChartData[0].data.reduce((acc, val) => acc + val, 0) >= lineChartData[1].data.reduce((acc, val) => acc + val, 0) ? 'green.500' : 'red.500'} fontSize='md' fontWeight='700'>
+                {lineChartData[0].data.reduce((acc, val) => acc + val, 0) >= lineChartData[1].data.reduce((acc, val) => acc + val, 0) ? 'On track' : 'Not on track'}
+              </Text>
+            </Flex>
+            ) : ""
+          }
+
         </Flex>
         <Box minH='260px' minW='75%' mt='auto'>
-          <LineChart
-            chartData={lineChartDataTotalSpent}
+        {lineChartData.length > 0 ? (          <LineChart
+            chartData={lineChartData}
             chartOptions={lineChartOptionsTotalSpent}
-          />
+          />) : ""}
         </Box>
       </Flex>
     </Card>

@@ -4,12 +4,22 @@ export const columnsDataCheck = [
     accessor: "name",
   },
   {
-    Header: "PROGRESS",
-    accessor: "progress",
+    Header: "CLOSE PRICE",
+    accessor: "close_price",
   },
   {
-    Header: "QUANTITY",
-    accessor: "quantity",
+    Header: "DATE",
+    accessor: "date",
+  },
+];
+export const columnsDataTransactions = [
+  {
+    Header: "NAME",
+    accessor: "name",
+  },
+  {
+    Header: "AMOUNT",
+    accessor: "amount",
   },
   {
     Header: "DATE",

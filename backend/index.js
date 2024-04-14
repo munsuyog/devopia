@@ -13,9 +13,13 @@ const configuration = new Configuration({
     },
 });
 
+const corsOptions = {
+  credentials: true,
+  origin: ['http://localhost:3000', 'http://localhost:8000'] // Whitelist the domains you want to allow
+};
 const plaidClient = new PlaidApi(configuration);
 const app = express();
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(bodyParser.json());
 
 app.post("/hello", (request, response) => {
@@ -136,7 +140,7 @@ app.post('/api/investments', async function (request, response, next) {
     }
   });
   
-  app.get('/api/transactions', async function (request, response, next) {
+  app.post('/api/transactions', async function (request, response, next) {
     try {
       // Set cursor to empty to receive all historical updates
       let cursor = null;
@@ -170,6 +174,19 @@ app.post('/api/investments', async function (request, response, next) {
       // Return the 8 most recent transactions
       const recentlyAdded = [...added].sort(compareTxnsByDateAscending).slice(-8);
       response.json({ latest_transactions: recentlyAdded });
+    } catch (error) {
+      next(error); // Passes the error to the Express error handler
+    }
+  });
+
+  app.get('/api/liabilities', async function (request, response, next) {
+    const ACCESS_TOKEN = request.body.access_token;
+    try {
+      const accountsResponse = await plaidClient.liabilitiesGet({
+        access_token: ACCESS_TOKEN,
+      });
+      console.log(accountsResponse);
+      response.json(accountsResponse.data);
     } catch (error) {
       next(error); // Passes the error to the Express error handler
     }
