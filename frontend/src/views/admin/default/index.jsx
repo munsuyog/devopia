@@ -133,8 +133,8 @@ export default function UserReports() {
               }
             />
           }
-          name='Total Spend'
-          value={transactions}
+          name='Total Transactions'
+          value={`Rs.${transactions}`}
         />
         <MiniStatistics
           startContent={
@@ -150,7 +150,7 @@ export default function UserReports() {
           name='Spend this month'
           value={monthlySpends}
         />
-        <MiniStatistics name='Net Worth' value={`$${totalInvestments}`} />
+        <MiniStatistics name='Net Worth' value={`Rs.${totalInvestments}`} />
       </SimpleGrid>
 
       <SimpleGrid columns={{ base: 1, md: 2, xl: 2 }} gap='20px' mb='20px'>

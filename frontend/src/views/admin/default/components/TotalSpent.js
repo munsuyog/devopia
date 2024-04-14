@@ -103,7 +103,7 @@ export default function TotalSpent(props) {
             textAlign='start'
             fontWeight='700'
             lineHeight='100%'>
-            {lineChartData.length > 0 ? (`Rs{lineChartData[1].data.reduce((acc, val) => acc + val, 0)}`) : ""}
+            {lineChartData.length > 0 ? (`Rs.${lineChartData[1].data.reduce((acc, val) => acc + val, 0)}`) : ""}
           </Text>
           <Flex align='center' mb='20px'>
             <Text
@@ -115,17 +115,40 @@ export default function TotalSpent(props) {
               Total Spent
             </Text>
           </Flex>
-
           {
-            lineChartData.length > 0 ? (
-              <Flex align='center'>
-              <Icon as={IoCheckmarkCircle} color={lineChartData[0].data.reduce((acc, val) => acc + val, 0) >= lineChartData[1].data.reduce((acc, val) => acc + val, 0) ? 'green.500' : 'red.500'} me='4px' />
-              <Text color={lineChartData[0].data.reduce((acc, val) => acc + val, 0) >= lineChartData[1].data.reduce((acc, val) => acc + val, 0) ? 'green.500' : 'red.500'} fontSize='md' fontWeight='700'>
-                {lineChartData[0].data.reduce((acc, val) => acc + val, 0) >= lineChartData[1].data.reduce((acc, val) => acc + val, 0) ? 'On track' : 'Not on track'}
-              </Text>
-            </Flex>
-            ) : ""
-          }
+  lineChartData.length > 0 ? (
+    <Flex align='center'>
+      <Icon
+        as={IoCheckmarkCircle}
+        color={
+          lineChartData[0].data.reduce((acc, val) => acc + val, 0) >=
+          lineChartData[1].data.reduce((acc, val) => acc + val, 0)
+            ? 'green.500'
+            : 'red.500'
+        }
+        me='4px'
+      />
+      <Text
+        color={
+          lineChartData[0].data.reduce((acc, val) => acc + val, 0) >=
+          lineChartData[1].data.reduce((acc, val) => acc + val, 0)
+            ? 'green.500'
+            : 'red.500'
+        }
+        fontSize='md'
+        fontWeight='700'
+      >
+        {
+          lineChartData[0].data.reduce((acc, val) => acc + val, 0) >=
+          lineChartData[1].data.reduce((acc, val) => acc + val, 0)
+            ? 'On track'
+            : 'Not on track'
+        }
+      </Text>
+    </Flex>
+  ) : ""
+}
+
 
         </Flex>
         <Box minH='260px' minW='75%' mt='auto'>
