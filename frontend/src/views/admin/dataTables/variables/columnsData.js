@@ -4,31 +4,36 @@ export const columnsDataDevelopment = [
     accessor: "name",
   },
   {
-    Header: "TECH",
-    accessor: "tech",
+    Header: "DATE",
+    accessor: "date",
+  },
+  {
+    Header: "CLOSE PRICE",
+    accessor: "close_price",
+  },
+];
+export const columnsDataTransactions = [
+  {
+    Header: "NAME",
+    accessor: "name",
+  },
+  {
+    Header: "AMOUNT",
+    accessor: "amount",
   },
   {
     Header: "DATE",
     accessor: "date",
   },
-  {
-    Header: "PROGRESS",
-    accessor: "progress",
-  },
 ];
-
 export const columnsDataCheck = [
   {
     Header: "NAME",
     accessor: "name",
   },
   {
-    Header: "PROGRESS",
-    accessor: "progress",
-  },
-  {
-    Header: "QUANTITY",
-    accessor: "quantity",
+    Header: "AMOUNT",
+    accessor: "amount",
   },
   {
     Header: "DATE",
@@ -44,10 +49,6 @@ export const columnsDataColumns = [
   {
     Header: "PROGRESS",
     accessor: "progress",
-  },
-  {
-    Header: "QUANTITY",
-    accessor: "quantity",
   },
   {
     Header: "DATE",
