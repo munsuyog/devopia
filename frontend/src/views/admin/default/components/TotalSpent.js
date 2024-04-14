@@ -103,7 +103,7 @@ export default function TotalSpent(props) {
             textAlign='start'
             fontWeight='700'
             lineHeight='100%'>
-            {lineChartData.length > 0 ? (`Rs.${lineChartData[1].data.reduce((acc, val) => acc + val, 0)}`) : ""}
+            {lineChartData.length > 0 ? (`Rs{lineChartData[1].data.reduce((acc, val) => acc + val, 0)}`) : ""}
           </Text>
           <Flex align='center' mb='20px'>
             <Text

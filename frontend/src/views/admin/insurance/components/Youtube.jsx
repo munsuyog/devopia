@@ -34,7 +34,11 @@ export default function Youtube() {
       }}
     >
       <div>
-        <h2 style={{ color: "#fff", marginTop: "20px" }}>Explanation Video</h2>
+        <h2 style={{ color: "#fff", marginTop: "20px" }}>
+          Don't know how to pick the right investments?...
+          <br />
+          Find out with the help of this video!
+        </h2>
       </div>
 
       <div>

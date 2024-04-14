@@ -18,6 +18,7 @@ import AddMembers from "views/admin/addMembers";
 import NFTMarketplace from "views/admin/marketplace";
 import Profile from "views/admin/profile";
 import DataTables from "views/admin/dataTables";
+import Insurance from "views/admin/insurance";
 import RiskManagement from "views/admin/riskManagement"
 import RiskAssessment from "views/admin/riskAssessment"
 import ChatBot from "views/admin/chatBot/Index"
@@ -25,6 +26,7 @@ import ChatBot from "views/admin/chatBot/Index"
 import SignInCentered from "views/auth/signIn";
 import SignUpCentered from "views/auth/signup";
 import { AddIcon } from "@chakra-ui/icons";
+import { IoMdDocument } from "react-icons/io";
 
 const routes = [
   {
@@ -90,6 +92,13 @@ const routes = [
     path: "/riskAssessment",
     icon: <Icon as={MdBarChart} width='20px' height='20px' color='inherit' />,
     component: RiskAssessment,
+  },
+  {
+    name: "Insurance",
+    layout: "/admin",
+    path: "/insurance",
+    icon: <Icon as={IoMdDocument} width='20px' height='20px' color='inherit' />,
+    component: Insurance,
   },
   {
     name: "ChatBot",
